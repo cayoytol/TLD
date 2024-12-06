@@ -1,0 +1,95 @@
+[gd_scene load_steps=13 format=3 uid="uid://b27drfwhdnqf7"]
+
+[ext_resource type="Texture2D" uid="uid://gu5r7fog6c3v" path="res://Assets/Assets/NW1.png" id="1_8lk5v"]
+[ext_resource type="Script" path="res://node_2d.gd" id="1_hasdt"]
+[ext_resource type="Texture2D" uid="uid://dl1v0kiu5nv0f" path="res://Assets/Assets/NW2.png" id="2_72lxn"]
+[ext_resource type="Texture2D" uid="uid://bto3gwx3n2y1s" path="res://Assets/Assets/NW3.png" id="3_c86oj"]
+[ext_resource type="Texture2D" uid="uid://d4iokqp5m8emy" path="res://Assets/Assets/LV1.png" id="4_wyb7y"]
+[ext_resource type="Texture2D" uid="uid://dem67243jm1wg" path="res://Assets/Assets/LV2.png" id="5_btj61"]
+[ext_resource type="Texture2D" uid="uid://dem0otwbk1sch" path="res://Assets/Assets/LV3.png" id="6_3aw3m"]
+[ext_resource type="Texture2D" uid="uid://dggp2rnniu3ju" path="res://Assets/Assets/TLD.png" id="7_jijbg"]
+[ext_resource type="Script" path="res://animation_player.gd" id="8_0rmp5"]
+
+[sub_resource type="Animation" id="Animation_vnb54"]
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.36667, 1.5, 1.66667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1539, 13), Vector2(8, 4), Vector2(51, 4), Vector2(6, 5)]
+}
+
+[sub_resource type="Animation" id="Animation_e6lmk"]
+resource_name = "new_animation"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.03333, 1.26667, 1.93333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1244, 17), Vector2(0, 0), Vector2(40, 0), Vector2(-4, 5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1ik4x"]
+_data = {
+"RESET": SubResource("Animation_vnb54"),
+"new_animation": SubResource("Animation_e6lmk")
+}
+
+[node name="MAIN" type="Node2D"]
+script = ExtResource("1_hasdt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = -514.0
+offset_top = 223.0
+offset_right = 535.0
+offset_bottom = 305.0
+texture_normal = ExtResource("1_8lk5v")
+texture_pressed = ExtResource("2_72lxn")
+texture_hover = ExtResource("3_c86oj")
+ignore_texture_size = true
+
+[node name="TextureButton2" type="TextureButton" parent="."]
+offset_left = 59.0
+offset_top = 307.0
+offset_right = 399.0
+offset_bottom = 390.0
+texture_normal = ExtResource("4_wyb7y")
+texture_pressed = ExtResource("5_btj61")
+texture_hover = ExtResource("6_3aw3m")
+ignore_texture_size = true
+
+[node name="TextureButton3" type="TextureButton" parent="."]
+offset_left = -1539.0
+offset_top = 13.0
+offset_right = -22.0
+offset_bottom = 209.0
+keep_pressed_outside = true
+texture_normal = ExtResource("7_jijbg")
+ignore_texture_size = true
+stretch_mode = 1
+
+[node name="WW" type="AnimationPlayer" parent="TextureButton3"]
+process_mode = 3
+deterministic = true
+libraries = {
+"": SubResource("AnimationLibrary_1ik4x")
+}
+movie_quit_on_finish = true
+script = ExtResource("8_0rmp5")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="animation_finished" from="TextureButton3/WW" to="TextureButton3/WW" method="_on_animation_finished"]

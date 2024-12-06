@@ -1,0 +1,227 @@
+[gd_scene load_steps=25 format=3 uid="uid://mxvtxx00ewy"]
+
+[ext_resource type="Texture2D" uid="uid://tjlcvcoikggk" path="res://Assets/Assets/DarkSamuraiAssets/DarkSamurai (64x64).png" id="1_e46um"]
+
+[sub_resource type="GDScript" id="GDScript_tm0xp"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 210.0
+const JUMP_VELOCITY = -400.0
+
+@onready var anim =$AnimatedSprite2D
+
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+		anim.play(\"Jump\")
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
+	if direction:
+		velocity.x = direction * SPEED
+		if velocity.y == 0:
+			anim.play(\"Run\")
+		
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if velocity.y == 0:
+			anim.play(\"Idle\")
+		
+		
+	if direction == -1:
+		$AnimatedSprite2D.flip_h = true
+	elif direction == 1:
+		$AnimatedSprite2D.flip_h = false
+	move_and_slide()
+   
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gk1ej"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7hn7"]
+atlas = ExtResource("1_e46um")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1vnb"]
+atlas = ExtResource("1_e46um")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5m26"]
+atlas = ExtResource("1_e46um")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rokwi"]
+atlas = ExtResource("1_e46um")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4ng4"]
+atlas = ExtResource("1_e46um")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2gdh"]
+atlas = ExtResource("1_e46um")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayxx2"]
+atlas = ExtResource("1_e46um")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyk4e"]
+atlas = ExtResource("1_e46um")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmurt"]
+atlas = ExtResource("1_e46um")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhsrl"]
+atlas = ExtResource("1_e46um")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpp06"]
+atlas = ExtResource("1_e46um")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcfb1"]
+atlas = ExtResource("1_e46um")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsaib"]
+atlas = ExtResource("1_e46um")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbqkd"]
+atlas = ExtResource("1_e46um")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dcn4m"]
+atlas = ExtResource("1_e46um")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dntt"]
+atlas = ExtResource("1_e46um")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ligcy"]
+atlas = ExtResource("1_e46um")
+region = Rect2(256, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqsj7"]
+atlas = ExtResource("1_e46um")
+region = Rect2(320, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhukg"]
+atlas = ExtResource("1_e46um")
+region = Rect2(384, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emndu"]
+atlas = ExtResource("1_e46um")
+region = Rect2(448, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7kv8v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7hn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1vnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5m26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rokwi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4ng4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2gdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayxx2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyk4e")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmurt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhsrl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpp06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcfb1")
+}],
+"loop": false,
+"name": &"Jump",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rsaib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbqkd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dcn4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dntt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ligcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqsj7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhukg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emndu")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 8.0
+}]
+
+[node name="Noob" type="CharacterBody2D"]
+script = SubResource("GDScript_tm0xp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_gk1ej")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_7kv8v")
+animation = &"Jump"
+autoplay = "Idle"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.8, 2.8)
+process_callback = 0
+limit_left = 0
+limit_top = -200
+limit_right = 1630
+limit_bottom = 650
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+drag_horizontal_enabled = true
